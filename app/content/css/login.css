@@ -1,0 +1,23 @@
+.login-container form {
+    margin-top: -50px;
+    max-width: 450px;
+    width: 100%;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-container.registry form {
+    max-width: 600px;
+}
+
+.login-text {
+    font-size: 20px;
+}
+
+body {
+    height: 100vh;
+}

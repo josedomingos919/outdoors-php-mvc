@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>XPTO Outdoors</title>
+		<link rel="stylesheet" href="/outdoors/app/content/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="/outdoors/app/content/css/home.css">
+		<link rel="stylesheet" href="/outdoors/app/content/css/login.css">
+	</head>
+	<body>
+		{{ super.nav }}
+		<div class="home-banner">
+			<div>
+				<h1>
+					Olá, Somos a XPTO
+				</h1>
+				<p class="decription-text">Faça login e explore mais os nossos serviços, fizemos aluger de outdoors em toda Angola!
+				</p>
+			</div>
+		</div>
+		<div class="login-container">
+			<form action="" method="post" class="card p-3">
+				<div class="mb-3">
+					<h1 class="login-text">Login</h1>
+				</div>
+				{% if error_message %}
+					<div class="alert alert-danger" role="alert">
+						{{ error_message }}
+					</div>
+				{% endif %}
+				<div class="mb-3">
+					<label for="exampleFormControlInput1" class="form-label">E-mail</label>
+					<input type="email" name="data[email]" class="form-control">
+				</div>
+				<div class="mb-4">
+					<label for="exampleFormControlTextarea1" class="form-label">Senha</label>
+					<input type="password" name="data[password]" class="form-control">
+				</div>
+				<div class="row p-3">
+					<button type="submit" class="btn btn-secondary mb-3">Entrar</button>
+					<a type="button" class="btn btn-dark">Registrar</a>
+				</div>
+			</form>
+		</div>
+		<footer>
+			CopyRight@2023
+		</footer>
+		<script src="/outdoors/app/scripts/bootstrap/bootstrap.js"></script>
+	</body>
+</html>

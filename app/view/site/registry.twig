@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>XPTO Outdoors</title>
+		<link rel="stylesheet" href="/outdoors/app/content/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="/outdoors/app/content/css/home.css">
+		<link rel="stylesheet" href="/outdoors/app/content/css/login.css">
+	</head>
+	<body>
+		{{ super.nav }}
+		<div class="home-banner">
+			<div>
+				<h1>
+					Olá, Somos a XPTO
+				</h1>
+				<p class="decription-text">Faça registro e explore mais os nossos serviços, fizemos aluger de outdoors em toda Angola!
+				</p>
+			</div>
+		</div>
+		<div class="login-container registry">
+			<form action="" method="post" class="card p-3">
+				<div class="mb-3">
+					<h1 class="login-text">Registrar-se</h1>
+				</div>
+				{% if success_message %}
+					<div class="alert alert-success" role="alert">
+						{{ success_message|raw }}
+					</div>
+				{% endif %}
+				{% if error_message %}
+					<div class="alert alert-danger" role="alert">
+						{{ error_message }}
+					</div>
+				{% endif %}
+				<div class="row">
+					<div class="mb-3 col">
+						<label class="form-label">Nome completo</label>
+						<input type="text" value="{{ data.name }}" name="data[name]" class="form-control" placeholder="">
+					</div>
+					<div class="mb-3 col">
+						<label class="form-label">Tipo de Cliente</label>
+						<select id="customer_type_input" name="data[type_id]" class="form-control">
+							<option value=""></option>
+							{% for item in customer_types %}
+								<option {% if item.id == data.type_id %} selected {% endif %} value="{{ item.id }}">{{ item.type }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="mb-3" id="activity_container">
+					<label class="form-label">Actividade da Empresa</label>
+					<input id="activity_input" type="text" name="data[activity]" value="{{ data.activity }}" class="form-control" placeholder="">
+				</div>
+				<div class="row">
+					<div class="mb-3 col">
+						<label class="form-label">Província</label>
+						<select id="province_input" name="data[province_id]" class="form-control">
+							<option value=""></option>
+							{% for item in provinces %}
+								<option {% if item.id == data.province_id %} selected {% endif %} value="{{ item.id }}">{{ item.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="mb-3 col">
+						<label class="form-label">Município</label>
+						<select id="municipality_input" name="data[municipality_id]" class="form-control">
+							{% if municipalities %}
+								<option value=""></option>
+								{% for item in municipalities %}
+									<option {% if item.id == data.municipality_id %} selected {% endif %} value="{{ item.id }}">{{ item.name }}</option>
+								{% endfor %}
+							{% endif %}
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="mb-3 col">
+						<label class="form-label">Comuna</label>
+						<select id="commune_input" name="data[commune_id]" class="form-control">
+							{% if communes %}
+								<option value=""></option>
+								{% for item in communes %}
+									<option {% if item.id == data.commune_id %} selected {% endif %} value="{{ item.id }}">{{ item.name }}</option>
+								{% endfor %}
+							{% endif %}
+						</select>
+					</div>
+					<div class="mb-3 col">
+						<label class="form-label">Nacionalidade</label>
+						<select id="nationality_input" name="data[nationality_id]" class="form-control">
+							<option value=""></option>
+							{% for item in nationalities %}
+								<option {% if item.id == data.nationality_id %} selected {% endif %} value="{{ item.id }}">{{ item.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="mb-3 col">
+					<label class="form-label">Morada</label>
+					<input type="text" name="data[address]" value="{{ data.address }}" class="form-control" placeholder="">
+				</div>
+				<div class="row">
+					<div class="mb-3 col">
+						<label class="form-label">Username</label>
+						<input type="text" name="data[username]" value="{{ data.username }}" class="form-control" placeholder="">
+					</div>
+					<div class="mb-3 col">
+						<label class="form-label">E-mail</label>
+						<input type="email" name="data[email]" value="{{ data.email }}" class="form-control" placeholder="">
+					</div>
+				</div>
+				<div class="row">
+					<div class="mb-4 col">
+						<label class="form-label">Senha</label>
+						<input type="password" name="data[password]" value="{{ data.password }}" class="form-control" placeholder="">
+					</div>
+					<div class="mb-4 col">
+						<label class="form-label">Confirmar Senha</label>
+						<input type="password" name="data[password_confirm]" value="{{ data.password_confirm }}" class="form-control" placeholder="">
+					</div>
+				</div>
+				<div class="row">
+					<div class="mb-4 col">
+						<label class="form-label">Telefone</label>
+						<input type="text" name="data[phone]" value="{{ data.phone }}" class="form-control" placeholder="">
+					</div>
+				</div>
+				<div class="row p-3">
+					<button type="submit" class="btn btn-secondary">Registrar</button>
+				</div>
+			</form>
+		</div>
+		<footer>
+			CopyRight@2023
+		</footer>
+		<script src="/outdoors/app/scripts/jquery/jquery-3.7.0.min.js"></script>
+		<script src="/outdoors/app/scripts/bootbox/bootbox.all.min.js"></script>
+		<script src="/outdoors/app/scripts/bootstrap/bootstrap.js"></script>
+		<script src="/outdoors/app/scripts/custom/registry.js"></script>
+	</body>
+</html>
