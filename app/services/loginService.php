@@ -4,13 +4,13 @@ namespace App\Services;
 
 use App\Core\Registry;
 use App\Model\User;
-use App\Repositories\UserRepository;
+use App\Repositories\IUserRepository;
 
 class LoginService extends Registry implements ILoginService
 {
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(IUserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }

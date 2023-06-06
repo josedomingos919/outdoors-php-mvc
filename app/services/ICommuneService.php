@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Model\Commune;
-
 interface ICommuneService
 {
     public function getOne(int $id);

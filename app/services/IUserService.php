@@ -11,4 +11,5 @@ interface IUserService
     public function getUser(int $user_id);
     public function getAdmins();
     public function toggleUser();
+    public function getAll();
 }

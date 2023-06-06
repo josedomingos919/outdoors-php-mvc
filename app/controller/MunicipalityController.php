@@ -3,14 +3,14 @@
 namespace App\Controller;
 
 use App\Core\Registry;
-use App\Services\MunicipalityService;
+use App\Services\IMunicipalityService;
 
 class MunicipalityController extends Registry
 {
 
     private $municipalityService;
 
-    public function __construct(MunicipalityService $municipalityService)
+    public function __construct(IMunicipalityService $municipalityService)
     {
         parent::__construct();
         $this->municipalityService = $municipalityService;

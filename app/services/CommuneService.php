@@ -2,14 +2,13 @@
 
 namespace App\Services;
 
-use App\Model\Commune;
-use App\Repositories\CommuneReposity;
+use App\Repositories\ICommuneRepository;
 
 class CommuneService implements ICommuneService
 {
     private $communeRepository;
 
-    public function __construct(CommuneReposity $communeRepository)
+    public function __construct(ICommuneRepository $communeRepository)
     {
         $this->communeRepository = $communeRepository;
     }

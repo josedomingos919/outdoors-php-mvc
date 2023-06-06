@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use App\Model\CustomerType;
-use App\Repositories\CustomerTypeRepository;
+use App\Repositories\ICustomerTypeRepository;
 
 class CustomerTypeService implements ICustomerTypeService
 {
     private $customerTypeRepository;
 
-    public function __construct(CustomerTypeRepository $customerTypeRepository)
+    public function __construct(ICustomerTypeRepository $customerTypeRepository)
     {
         $this->customerTypeRepository = $customerTypeRepository;
     }

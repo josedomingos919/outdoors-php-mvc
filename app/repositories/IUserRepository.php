@@ -10,4 +10,6 @@ interface IUserRepository
     public function getUser(int $user_id);
     public function updateUser(User $user);
     public function getAll();
+    public function getUserByUsername(string $username);
+    public function getAdmins();
 }

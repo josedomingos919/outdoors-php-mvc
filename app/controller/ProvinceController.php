@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Core\Registry;
-use App\Services\ProvinceService;
+use App\Services\IProvinceService;
 
 class ProvinceController extends Registry
 {
     private $provinceService;
 
-    public function __construct(ProvinceService  $provinceService)
+    public function __construct(IProvinceService $provinceService)
     {
         parent::__construct();
         $this->provinceService = $provinceService;

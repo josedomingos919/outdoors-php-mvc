@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Core\Registry;
 use App\Model\Manager;
 use App\Model\User;
-use App\Repositories\managerRepository;
+use App\Repositories\IManagerRepository;
 
 class ManagerService extends Registry implements IManagerService
 {
@@ -16,11 +16,11 @@ class ManagerService extends Registry implements IManagerService
     private $managerRepository;
 
     public function __construct(
-        UserService $userService,
-        CommuneService $communeService,
-        ProvinceService $provinceService,
-        ManagerRepository $managerRepository,
-        MunicipalityService $municipalityService
+        IUserService $userService,
+        ICommuneService $communeService,
+        IProvinceService $provinceService,
+        IManagerRepository $managerRepository,
+        IMunicipalityService $municipalityService
     ) {
         parent::__construct();
 

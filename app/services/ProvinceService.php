@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use App\Model\Province;
-use App\Repositories\ProvinceRepository;
+use App\Repositories\IProvinceRepository;
 
 class ProvinceService implements IProvinceService
 {
     private $provinceRespository;
 
-    public function __construct(ProvinceRepository $provinceRespository)
+    public function __construct(IProvinceRepository $provinceRespository)
     {
         $this->provinceRespository = $provinceRespository;
     }

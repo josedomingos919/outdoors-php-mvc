@@ -6,15 +6,13 @@ use App\Core\Registry;
 use App\Model\Customer;
 use App\Model\Manager;
 use App\Model\User;
-use App\Services\CommuneService;
-use App\Services\CustomerService;
-use App\Services\CustomerTypeService;
-use App\Services\LoginService;
-use App\Services\ManagerService;
-use App\Services\MunicipalityService;
-use App\Services\NationalityService;
-use App\Services\ProvinceService;
-use App\Services\UserService;
+use App\Services\ICommuneService;
+use App\Services\ICustomerService;
+use App\Services\ILoginService;
+use App\Services\IManagerService;
+use App\Services\IMunicipalityService;
+use App\Services\IProvinceService;
+use App\Services\IUserService;
 
 class HomeController extends Registry
 {
@@ -27,13 +25,13 @@ class HomeController extends Registry
     private $managerService;
 
     public function __construct(
-        CustomerService $customerService,
-        LoginService $loginService,
-        CommuneService $communeService,
-        MunicipalityService $municipalityService,
-        ProvinceService $provinceService,
-        UserService $userService,
-        ManagerService $managerService
+        ICustomerService $customerService,
+        ILoginService $loginService,
+        ICommuneService $communeService,
+        IMunicipalityService $municipalityService,
+        IProvinceService $provinceService,
+        IUserService $userService,
+        IManagerService $managerService
     ) {
         parent::__construct();
 

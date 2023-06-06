@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Core\Registry;
-use App\Services\CommuneService;
+use App\Services\ICommuneService;
 
 class CommuneController extends Registry
 {
     private $communeService;
 
-    public function __construct(CommuneService $communeService)
+    public function __construct(ICommuneService $communeService)
     {
         parent::__construct();
         $this->communeService = $communeService;

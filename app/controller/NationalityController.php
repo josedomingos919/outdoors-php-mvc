@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Core\Registry;
-use App\Services\NationalityService;
+use App\Services\INationalityService;
 
 class NationalityController extends Registry
 {
     private $nationalityService;
 
-    public function __construct(NationalityService  $nationalityService)
+    public function __construct(INationalityService  $nationalityService)
     {
         parent::__construct();
         $this->nationalityService = $nationalityService;
