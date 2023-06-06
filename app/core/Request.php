@@ -10,9 +10,9 @@ class Request
 
     public function __construct()
     {
-        $this->get = $_GET;
-        $this->post = $_POST;
-        $this->session = $_SESSION;
+        $this->get = &$_GET;
+        $this->post = &$_POST;
+        $this->session = &$_SESSION;
     }
 
     public function clearSession()

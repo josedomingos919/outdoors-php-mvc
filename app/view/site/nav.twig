@@ -6,12 +6,30 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="/outdoors/login">Entra</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/outdoors/registry">Cadastrar-se</a>
-				</li>
+				{% if super.user %}
+					{% if super.user.access == 'admin' %}
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/outdoors/manager">Gestor</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="/outdoors/users">Usuários</a>
+						</li>
+					{% elseif super.user.access == 'normal' %}
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/outdoors/profile">Perfil</a>
+						</li>
+					{% endif %}
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="/outdoors/logout">Sair</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="/outdoors/login">Entra</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="/outdoors/registry">Cadastrar-se</a>
+					</li>
+				{% endif  %}
 			</ul>
 		</div>
 	</div>

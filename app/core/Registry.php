@@ -12,6 +12,16 @@ class Registry
         $this->request = new Request();
     }
 
+    public function unsetSession()
+    {
+        session_unset();
+    }
+
+    public function setSession($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
     public function redirect($url)
     {
         header('location: ' . $url);

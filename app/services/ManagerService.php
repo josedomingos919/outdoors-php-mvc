@@ -3,45 +3,37 @@
 namespace App\Services;
 
 use App\Core\Registry;
-use App\Model\Customer;
+use App\Model\Manager;
 use App\Model\User;
-use App\Repositories\CustomerRepository;
+use App\Repositories\managerRepository;
 
-class CustomerService extends Registry implements ICustomerService
+class ManagerService extends Registry implements IManagerService
 {
     private $communeService;
     private $provinceService;
-    private $nationalityService;
     private $municipalityService;
-    private $customerTypeService;
     private $userService;
-    private $customerRepository;
+    private $managerRepository;
 
     public function __construct(
         UserService $userService,
         CommuneService $communeService,
         ProvinceService $provinceService,
-        NationalityService $nationalityService,
-        CustomerRepository $customerRepository,
-        MunicipalityService $municipalityService,
-        CustomerTypeService $customerTypeService
+        ManagerRepository $managerRepository,
+        MunicipalityService $municipalityService
     ) {
         parent::__construct();
 
         $this->userService     = $userService;
         $this->communeService  = $communeService;
         $this->provinceService = $provinceService;
-        $this->nationalityService  = $nationalityService;
-        $this->customerRepository  = $customerRepository;
+        $this->managerRepository  = $managerRepository;
         $this->municipalityService = $municipalityService;
-        $this->customerTypeService = $customerTypeService;
     }
 
     public function fillSelectData(&$data)
     {
         $data['provinces'] = $this->provinceService->getAll();
-        $data['nationalities'] = $this->nationalityService->getAll();
-        $data['customer_types'] = $this->customerTypeService->getAll();
     }
 
     public function fillRegisterForm(&$data)
@@ -57,37 +49,28 @@ class CustomerService extends Registry implements ICustomerService
         }
     }
 
-    public function validateFormData(User $user, Customer $customer, &$data): bool
+    public function validateFormData(User $user, Manager $manager, &$data): bool
     {
-        if (empty(@$customer->name)) {
+        if (empty(@$manager->name)) {
             $data['error_message'] = "O nome não foi definido!";
             return false;
         }
 
-        if (empty(@$customer->typeId)) {
-            $data['error_message'] = "O tipo de cliente não foi definido!";
+        if (empty(@$manager->phone)) {
+            $data['error_message'] = "O Telefone não foi definido!";
             return false;
         }
 
-        if (empty(@$customer->communeId)) {
+        if (empty(@$manager->communeId)) {
             $data['error_message'] = "A comuna não foi definida!";
             return false;
         }
 
-        if (empty(@$customer->address)) {
+        if (empty(@$manager->address)) {
             $data['error_message'] = "A morada não foi definida!";
             return false;
         }
 
-        if (empty(@$customer->nationalityId)) {
-            $data['error_message'] = "A nacionalidade não foi definida!";
-            return false;
-        }
-
-        if (empty(@$customer->phone)) {
-            $data['error_message'] = "O Telefone não foi definido!";
-            return false;
-        }
 
         if (empty(@$user->email)) {
             $data['error_message'] = "O email não foi definido!";
@@ -127,10 +110,10 @@ class CustomerService extends Registry implements ICustomerService
         return true;
     }
 
-    public function execAddRegitry(User $user, Customer $customer, &$data)
+    public function execAddRegitry(User $user, Manager $manager, &$data)
     {
         try {
-            if (!$this->validateFormData($user, $customer, $data)) return false;
+            if (!$this->validateFormData($user, $manager, $data)) return false;
 
             $responseUser = $this->userService->addUser($user);
 
@@ -139,18 +122,35 @@ class CustomerService extends Registry implements ICustomerService
                 return false;
             }
 
-            $customer->userId = $responseUser->id;
-            $responseCustomer = $this->customerRepository->addCustomer($customer);
+            $manager->userId = $responseUser->id;
+            $responseManager = $this->managerRepository->addManager($manager);
 
-            if (isset($responseCustomer)) {
+            if (isset($responseManager)) {
                 $data = array();
 
-                $this->notifyAdmin();
-
-                $data['success_message'] = "Registrado com sucesso, pode inicar secção <a href='/outdoors/login'>Clique Aqui</a>!";
+                $data['success_message'] = "Registrado com sucesso!";
                 $data['provinces'] = $this->provinceService->getAll();
-                $data['nationalities'] = $this->nationalityService->getAll();
-                $data['customer_types'] = $this->customerTypeService->getAll();
+
+                EmialService::sendEmail(
+                    'xpto@gmail.com',
+                    'XPTO - OUTDOORS',
+                    $responseUser->email,
+                    $responseManager->name,
+                    'Novo gestor XPTO',
+                    $this->getHtml('mail/template1', [
+                        'name' => $responseManager->name,
+                        'message' => '
+                            Você foi adicionado para ser um gestor na XPTO, 
+                            aqui estão as suas credenciais
+                            <hr>
+                            Username: <b>' .  $responseUser->username . '</b> 
+                            <br>Senha: <b>' . $responseUser->password . '</b>
+                            <hr>
+                            <br>
+                            Obrigado!
+                        '
+                    ])
+                );
 
                 return true;
             } else {
@@ -163,28 +163,10 @@ class CustomerService extends Registry implements ICustomerService
         }
     }
 
-    public function notifyAdmin()
-    {
-        $admins = $this->userService->getAdmins();
-
-        foreach ($admins as $admin) {
-            EmialService::sendEmail(
-                'xpto@gmail.com',
-                'XPTO - OUTDOORS',
-                $admin->email,
-                $admin->email,
-                'Activação de Conta',
-                $this->getHtml('mail/template1', [
-                    'name' => '',
-                    'message' => 'Temos novo usuário na aplicação, e precisa fazer a ativação da conta dele para que ele posssa beneficiar dos recursos da aplicação, Obrigado!'
-                ])
-            );
-        }
-    }
-    public function execUpdateRegitry(User $user, Customer $customer, &$data)
+    public function execUpdateRegitry(User $user, Manager $manager, &$data)
     {
         try {
-            if (!$this->validateFormData($user, $customer, $data)) return false;
+            if (!$this->validateFormData($user, $manager, $data)) return false;
 
             $responseUser = $this->userService->updateUser($user);
 
@@ -193,9 +175,9 @@ class CustomerService extends Registry implements ICustomerService
                 return false;
             }
 
-            $responseCustomer = $this->customerRepository->updateCustomer($customer);
+            $responseManager = $this->managerRepository->updateManager($manager);
 
-            if ($responseCustomer) {
+            if ($responseManager) {
                 $this->redirect('/outdoors/profile');
                 return true;
             } else {
@@ -208,8 +190,8 @@ class CustomerService extends Registry implements ICustomerService
         }
     }
 
-    public function getCustomerByUserId(int $user_id)
+    public function getManagerByUserId(int $user_id)
     {
-        return $this->customerRepository->getCustomerByUserId($user_id);
+        return $this->managerRepository->getManagerByUserId($user_id);
     }
 }

@@ -31,12 +31,12 @@
 					</div>
 				{% endif %}
 				<div class="mb-3">
-					<label for="exampleFormControlInput1" class="form-label">E-mail</label>
-					<input type="email" name="data[email]" class="form-control">
+					<label for="exampleFormControlInput1" class="form-label">Username</label>
+					<input type="text" name="data[username]" value="{{ data.username }}" class="form-control">
 				</div>
 				<div class="mb-4">
 					<label for="exampleFormControlTextarea1" class="form-label">Senha</label>
-					<input type="password" name="data[password]" class="form-control">
+					<input type="password" name="data[password]" value="{{ data.password }}" class=" form-control">
 				</div>
 				<div class="row p-3">
 					<button type="submit" class="btn btn-secondary mb-3">Entrar</button>

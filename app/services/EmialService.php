@@ -8,23 +8,23 @@ use PHPMailer\PHPMailer\Exception;
 
 class EmialService
 {
-    public function sendEmail($toEmail, $toName, $subject, $body)
+    public static function sendEmail($fromEmail, $fromName, $toEmail, $toName, $subject, $body)
     {
         $mail = new PHPMailer(true);
 
         try {
             //Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->CharSet = "UTF-8";
+            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->isSMTP();
-            $mail->Host       = 'smtp.example.com';
+            $mail->Host       = 'sandbox.smtp.mailtrap.io';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'user@example.com';
-            $mail->Password   = 'secret';
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            $mail->Port       = 465;
+            $mail->Username   = 'f82ba5b860c3a8';
+            $mail->Password   = '461a3b54b455b0';
+            $mail->Port       = 2525;
 
             //Recipients
-            $mail->setFrom('xpto@example.com', 'Outdoors');
+            $mail->setFrom($fromEmail, $fromName);
             $mail->addAddress($toEmail, $toName);
 
             //Content

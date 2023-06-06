@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>XPTO Outdoors</title>
+		<link rel="stylesheet" href="/outdoors/app/content/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="/outdoors/app/content/css/home.css">
+		<link rel="stylesheet" href="/outdoors/app/content/css/login.css">
+	</head>
+	<body>
+		{{ super.nav }}
+		<div class="home-banner">
+			<div>
+				<h1>
+					Olá, Somos a XPTO
+				</h1>
+				<p class="decription-text">Fizemos aluger de outdoors em toda Angola!
+				</p>
+			</div>
+		</div>
+		<div class="login-container list">
+			<form action="" method="post" class="card p-3">
+				<div class="mb-3">
+					<h1 class="login-text">Utilizadores</h1>
+				</div>
+				{% if success_message %}
+					<div class="alert alert-success" role="alert">
+						{{ success_message|raw }}
+					</div>
+				{% endif %}
+				{% if error_message %}
+					<div class="alert alert-danger" role="alert">
+						{{ error_message }}
+					</div>
+				{% endif %}
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Username</th>
+							<th scope="col">Email</th>
+							<th scope="col">Estado</th>
+							<th scope="col">Acesso</th>
+							<th scope="col" class="text-center">Opção</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for user in users %}
+							<tr>
+								<td>{{ user.username }}</td>
+								<td>{{ user.email }}</td>
+								<td>
+									{% if user.status == 0 %}
+										<p>Desativado</p>
+									{% else %}
+										<p>Activado</p>
+									{% endif %}
+								</td>
+								<td>{{ user.access }}</td>
+								<td class="text-center">
+									{% if user.id != super.user %}
+										{% if user.status == 0 %}
+											<a href="/outdoors/toogle-user&user_id={{ user.id }}" class="btn btn-success">Activar</a>
+										{% else %}
+											<a href="/outdoors/toogle-user&user_id={{ user.id }}" class="btn btn-danger">Desativar</a>
+										{% endif %}
+									{% endif %}
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</form>
+		</div>
+		<script src="/outdoors/app/scripts/jquery/jquery-3.7.0.min.js"></script>
+		<script src="/outdoors/app/scripts/bootbox/bootbox.all.min.js"></script>
+		<script src="/outdoors/app/scripts/bootstrap/bootstrap.js"></script>
+		<script src="/outdoors/app/scripts/custom/registry.js"></script>
+	</body>
+</html>

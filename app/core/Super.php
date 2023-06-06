@@ -8,4 +8,9 @@ class Super extends Registry
     {
         return $this->getHtml('site/nav');
     }
+
+    public function user()
+    {
+        return isset($this->request->session["user"]) ? $this->request->session["user"] : null;
+    }
 }

@@ -11,7 +11,7 @@ class ProvinceRepository extends PDOAdapter implements IProvinceRepository
     {
         $response = $this->query("SELECT *FROM province WHERE id=$id");
 
-        $rows = @$response->fetch(\PDO::FETCH_ASSOC)[0];
+        $rows = @$response->fetchAll(\PDO::FETCH_ASSOC)[0];
 
         return isset($rows) ? new Province($rows['id'], $rows['name']) : null;
     }

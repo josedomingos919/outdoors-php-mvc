@@ -11,7 +11,7 @@ class CommuneReposity extends PDOAdapter implements ICommuneRepository
     {
         $response = $this->query("SELECT *FROM commune WHERE id=$id");
 
-        $rows = @$response->fetch(\PDO::FETCH_ASSOC)[0];
+        $rows = @$response->fetchAll(\PDO::FETCH_ASSOC)[0];
 
         return isset($rows) ? new Commune($rows['id'], $rows['name'], $rows['municipality_id']) : null;
     }

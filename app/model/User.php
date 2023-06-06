@@ -6,8 +6,12 @@ use App\Core\Model;
 
 class User extends Model
 {
-    const STATUS_ACTIVE = '1';
+    const STATUS_ACTIVE   = '1';
     const STATUS_INACTIVE = '0';
+
+    const ACCESS_NORMAL  = 'normal';
+    const ACCESS_ADMIN   = 'admin';
+    const ACCESS_MANAGER = 'manager';
 
     public $id;
     public $email;

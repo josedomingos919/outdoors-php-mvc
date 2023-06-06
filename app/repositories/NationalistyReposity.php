@@ -11,7 +11,7 @@ class NationalistyReposity extends PDOAdapter implements INationalityRepository
     {
         $response = $this->query("SELECT *FROM nationality WHERE id=$id");
 
-        $rows = @$response->fetch(\PDO::FETCH_ASSOC)[0];
+        $rows = @$response->fetchAll(\PDO::FETCH_ASSOC)[0];
 
         return isset($rows) ? new Nationality($rows['id'], $rows['name']) : null;
     }

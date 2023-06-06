@@ -11,7 +11,7 @@ class MunicipalityReposity extends PDOAdapter implements IMunicipalityReposity
     {
         $response = $this->query("SELECT *FROM municipality WHERE id=$id");
 
-        $rows = @$response->fetch(\PDO::FETCH_ASSOC)[0];
+        $rows = @$response->fetchAll(\PDO::FETCH_ASSOC)[0];
 
         return isset($rows) ? new Municipality($rows['id'], $rows['name'], $rows['province_id']) : null;
     }

@@ -16,14 +16,14 @@
 				<h1>
 					Olá, Somos a XPTO
 				</h1>
-				<p class="decription-text">Faça registro e explore mais os nossos serviços, fizemos aluger de outdoors em toda Angola!
+				<p class="decription-text">Fizemos aluger de outdoors em toda Angola!
 				</p>
 			</div>
 		</div>
 		<div class="login-container registry">
 			<form action="" method="post" class="card p-3">
 				<div class="mb-3">
-					<h1 class="login-text">Registrar-se</h1>
+					<h1 class="login-text">Criar Agente</h1>
 				</div>
 				{% if success_message %}
 					<div class="alert alert-success" role="alert">
@@ -41,18 +41,9 @@
 						<input type="text" value="{{ data.name }}" name="data[name]" class="form-control" placeholder="">
 					</div>
 					<div class="mb-3 col">
-						<label class="form-label">Tipo de Cliente</label>
-						<select id="customer_type_input" name="data[type_id]" class="form-control">
-							<option value=""></option>
-							{% for item in customer_types %}
-								<option {% if item.id == data.type_id %} selected {% endif %} value="{{ item.id }}">{{ item.type }}</option>
-							{% endfor %}
-						</select>
+						<label class="form-label">Telefone</label>
+						<input type="number" name="data[phone]" value="{{ data.phone }}" class="form-control" placeholder="">
 					</div>
-				</div>
-				<div class="mb-3" id="activity_container">
-					<label class="form-label">Actividade da Empresa</label>
-					<input id="activity_input" type="text" name="data[activity]" value="{{ data.activity }}" class="form-control" placeholder="">
 				</div>
 				<div class="row">
 					<div class="mb-3 col">
@@ -67,8 +58,8 @@
 					<div class="mb-3 col">
 						<label class="form-label">Município</label>
 						<select id="municipality_input" name="data[municipality_id]" class="form-control">
+							<option value=""></option>
 							{% if municipalities %}
-								<option value=""></option>
 								{% for item in municipalities %}
 									<option {% if item.id == data.municipality_id %} selected {% endif %} value="{{ item.id }}">{{ item.name }}</option>
 								{% endfor %}
@@ -80,8 +71,8 @@
 					<div class="mb-3 col">
 						<label class="form-label">Comuna</label>
 						<select id="commune_input" name="data[commune_id]" class="form-control">
+							<option value=""></option>
 							{% if communes %}
-								<option value=""></option>
 								{% for item in communes %}
 									<option {% if item.id == data.commune_id %} selected {% endif %} value="{{ item.id }}">{{ item.name }}</option>
 								{% endfor %}
@@ -89,18 +80,9 @@
 						</select>
 					</div>
 					<div class="mb-3 col">
-						<label class="form-label">Nacionalidade</label>
-						<select id="nationality_input" name="data[nationality_id]" class="form-control">
-							<option value=""></option>
-							{% for item in nationalities %}
-								<option {% if item.id == data.nationality_id %} selected {% endif %} value="{{ item.id }}">{{ item.name }}</option>
-							{% endfor %}
-						</select>
+						<label class="form-label">Morada</label>
+						<input type="text" name="data[address]" value="{{ data.address }}" class="form-control" placeholder="">
 					</div>
-				</div>
-				<div class="mb-3 col">
-					<label class="form-label">Morada</label>
-					<input type="text" name="data[address]" value="{{ data.address }}" class="form-control" placeholder="">
 				</div>
 				<div class="row">
 					<div class="mb-3 col">
@@ -122,14 +104,8 @@
 						<input type="password" name="data[password_confirm]" value="{{ data.password_confirm }}" class="form-control" placeholder="">
 					</div>
 				</div>
-				<div class="row">
-					<div class="mb-4 col">
-						<label class="form-label">Telefone</label>
-						<input type="number" name="data[phone]" value="{{ data.phone }}" class="form-control" placeholder="">
-					</div>
-				</div>
 				<div class="row p-3">
-					<button type="submit" class="btn btn-secondary">Registrar</button>
+					<button type="submit" class="btn btn-secondary">Salvar</button>
 				</div>
 			</form>
 		</div>

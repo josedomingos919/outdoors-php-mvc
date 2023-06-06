@@ -14,7 +14,7 @@ class CommuneService implements ICommuneService
         $this->communeRepository = $communeRepository;
     }
 
-    public function getOne(int $id): Commune
+    public function getOne(int $id)
     {
         return $this->communeRepository->getOne($id);
     }
