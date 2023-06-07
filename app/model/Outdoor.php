@@ -7,8 +7,8 @@ use App\Core\Model;
 class Outdoor extends Model
 {
     private $id;
-    private $tipo;
+    private $tipoId;
     private $price;
     private $status;
-    private $commune_id;
+    private $communeId;
 }
