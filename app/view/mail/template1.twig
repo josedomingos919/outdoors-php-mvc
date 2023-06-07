@@ -6,25 +6,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>XPTO Outdoors</title>
 	</head>
-	<body style="
-						        display: flex;
-						        flex-direction: column;
-						        align-items: center;
-						        justify-content: center;
-						        text-align: center;
-						        ">
-		<div style="	width: 100%;max-width: 200px; display: flex; flex-direction: column;">
+	<body style="display: flex; flex-direction: column; align-items: center;  justify-content: center; text-align: center;">
+		<div style="width: 100%;max-width: 200px; display: flex; flex-direction: column;">
 			<header>
 				<h2 style="font-size: 20px; color: #848484;">Olá,
 					{{ name  }}
 				</h2>
 			</header>
-			<div style="
-										                border-radius: 10px;
-										                padding: 10px;
-										                background-color: #00000012;
-										                width: 100%;
-										                ">
+			<div style="border-radius: 10px; padding: 10px;background-color: #00000012;width: 100%;">
 				<p style="text-align: justify;">{{ message|raw }}</p>
 			</div>
 			<footer style="margin-top: 10px;color: #cccccc;font-size: 12px; text-align: center; width: 100%;">
