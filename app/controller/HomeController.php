@@ -49,7 +49,6 @@ class HomeController extends Registry
         $this->getView('site/home');
     }
 
-
     public function email()
     {
         $data = array('name' => 'José', 'message' => 'Message');
@@ -196,8 +195,12 @@ class HomeController extends Registry
     public function users()
     {
         $data = array();
-
-        $data['users'] = $this->userService->getAll();
+        $page = isset($this->request->get["page"]) ? $this->request->get["page"] : 1;
+        $pagination = $this->userService->totalPage();
+        $data['pages'] = $pagination['pages'];
+        $data['total'] = $pagination['total'];
+        $data['page']  = $page;
+        $data['users'] = $this->userService->getAll($page);
 
         $this->getView('site/users', $data);
     }

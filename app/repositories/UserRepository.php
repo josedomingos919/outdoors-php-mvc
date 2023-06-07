@@ -2,12 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Core\Pagination;
 use App\DBConfig\PDOAdapter;
 use App\Model\User;
 
 class UserRepository extends PDOAdapter implements IUserRepository
 {
-
     public function getUserByUsername(string $username)
     {
         try {
@@ -39,10 +39,10 @@ class UserRepository extends PDOAdapter implements IUserRepository
     }
 
 
-    public function getAll()
+    public function getAll($page)
     {
         try {
-            $response = $this->query("SELECT *FROM user");
+            $response = $this->query("SELECT *FROM user LIMIT " . Pagination::getStart($page) . " , " . Pagination::getEnd());
             $rows = $response->fetchAll(\PDO::FETCH_ASSOC);
             $users = array();
 
@@ -53,6 +53,20 @@ class UserRepository extends PDOAdapter implements IUserRepository
             return $users;
         } catch (\Exception $error) {
             return NULL;
+        }
+    }
+
+    public function totalPage(): array
+    {
+        try {
+            $response = $this->query("SELECT COUNT(*) as total FROM user");
+
+            $total = $response->fetchAll(\PDO::FETCH_ASSOC)[0]['total'];
+            $pages = $total / Pagination::getEnd();
+
+            return array('total' => $total, 'pages' => $pages);
+        } catch (\Exception $error) {
+            return 0;
         }
     }
 

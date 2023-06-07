@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Core\Registry;
 use App\Model\User;
 use App\Repositories\IUserRepository;
-use App\Repositories\UserRepository;
 
 class UserService extends Registry implements IUserService
 {
@@ -65,8 +64,13 @@ class UserService extends Registry implements IUserService
         return $this->userRepository->getAdmins();
     }
 
-    public function getAll()
+    public function getAll($page)
     {
-        return $this->userRepository->getAll();
+        return $this->userRepository->getAll($page);
+    }
+
+    public function totalPage(): array
+    {
+        return $this->userRepository->totalPage();
     }
 }

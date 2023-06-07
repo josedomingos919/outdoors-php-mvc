@@ -71,6 +71,33 @@
 						{% endfor %}
 					</tbody>
 				</table>
+				{% if pages > 1 %}
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							{% if page > 1 %}
+								<li class="page-item">
+									<a class="page-link" href="/outdoors/users&page={{ page - 1 }}" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+									</a>
+								</li>
+							{% endif %}
+							{% for i in 0..pages %}
+								<li {% if page == i+1 %} class="page-item active" {% else %} class="page-item" {% endif %}>
+									<a class="page-link" href="/outdoors/users&page={{ i + 1 }}">{{ i + 1 }}</a>
+								</li>
+							{% endfor %}
+							{% if page < pages %}
+								<li class="page-item">
+									<a class="page-link" href="/outdoors/users&page={{ page + 1 }}" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+									</a>
+								</li>
+							{% endif %}
+						</ul>
+					</nav>
+				{% endif %}
+
+
 			</form>
 		</div>
 		<script src="/outdoors/app/scripts/jquery/jquery-3.7.0.min.js"></script>

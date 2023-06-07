@@ -4,7 +4,6 @@ namespace App\Core;
 
 class Registry
 {
-    public $teste;
     protected $request;
 
     public function __construct()
