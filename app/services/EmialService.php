@@ -10,7 +10,6 @@ class EmialService
 {
     public static function sendEmail($fromEmail, $fromName, $toEmail, $toName, $subject, $body)
     {
-        /*
         $mail = new PHPMailer();
 
         try {
@@ -37,6 +36,6 @@ class EmialService
             return true;
         } catch (Exception $e) {
             return false;
-        } */
+        }
     }
 }
