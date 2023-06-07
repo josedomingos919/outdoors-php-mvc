@@ -5,7 +5,7 @@ RewriteEngine On
 # RewriteRule ^public/ - [L]
 
 # Static resources if they exist
-RewriteRule ^app/ - [L]
+RewriteRule ^(app/content/|app/scripts/) - [L]
 # RewriteCond %{DOCUMENT_ROOT}/app/$1 -f
 # RewriteRule (.+) app/$1 [L]
 
