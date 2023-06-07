@@ -3,13 +3,13 @@
 namespace App\Controller;
 
 use App\Core\Registry;
-use App\Services\ICustomerTypeService;
+use App\Services\CustomerTypeService;
 
 class CustomerTypeController extends Registry
 {
     private $customerTypeService;
 
-    public function __construct(ICustomerTypeService $customerTypeService)
+    public function __construct(CustomerTypeService $customerTypeService)
     {
         parent::__construct();
         $this->customerTypeService = $customerTypeService;

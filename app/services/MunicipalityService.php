@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use App\Model\Municipality;
-use App\Repositories\IMunicipalityReposity;
+use App\Repositories\MunicipalityReposity;
 
 class MunicipalityService implements IMunicipalityService
 {
     private $municipalityRespository;
 
-    public function __construct(IMunicipalityReposity $municipalityRespository)
+    public function __construct(MunicipalityReposity $municipalityRespository)
     {
         $this->municipalityRespository = $municipalityRespository;
     }

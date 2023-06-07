@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use App\Model\Nationality;
-use App\Repositories\INationalityRepository;
+use App\Repositories\NationalistyReposity;
 
 class NationalityService implements INationalityService
 {
     private $nationalistyReposity;
 
-    public function __construct(INationalityRepository $nationalistyReposity)
+    public function __construct(NationalistyReposity $nationalistyReposity)
     {
         $this->nationalistyReposity = $nationalistyReposity;
     }

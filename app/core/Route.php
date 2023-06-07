@@ -7,65 +7,27 @@ use App\Controller\ErrorController;
 use App\Controller\MunicipalityController;
 use App\Controller\NationalityController;
 use App\Controller\ProvinceController;
-use App\Repositories\CommuneReposity;
-use App\Repositories\CustomerRepository;
-use App\Repositories\CustomerTypeRepository;
-use App\Repositories\ManagerRepository;
-use App\Repositories\MunicipalityReposity;
-use App\Repositories\NationalistyReposity;
-use App\Repositories\ProvinceRepository;
-use App\Repositories\UserRepository;
-use App\Services\CommuneService;
-use App\Services\CustomerService;
-use App\Services\CustomerTypeService;
-use App\Services\LoginService;
-use App\Services\ManagerService;
-use App\Services\MunicipalityService;
-use App\Services\NationalityService;
-use App\Services\ProvinceService;
-use App\Services\UserService;
+use App\Model\User;
 
-$userService = new UserService(new UserRepository);
-$communeService = new CommuneService(new CommuneReposity);
-$provinceService = new ProvinceService(new ProvinceRepository);
-$municipalityService = new MunicipalityService(new MunicipalityReposity);
-$customerTypeService = new CustomerTypeService(new CustomerTypeRepository);
-$nationalityService = new NationalityService(new NationalistyReposity);
-$customerService = new CustomerService(
-    $userService,
-    $communeService,
-    $provinceService,
-    $nationalityService,
-    new CustomerRepository,
-    $municipalityService,
-    $customerTypeService,
-);
-$loginService = new LoginService(new UserRepository);
-$managerService = new ManagerService($userService, $communeService, $provinceService, new ManagerRepository, $municipalityService);
+$container = new DI\Container();
 
-$errorController = new ErrorController();
-$homeController = new HomeController(
-    $customerService,
-    $loginService,
-    $communeService,
-    $municipalityService,
-    $provinceService,
-    $userService,
-    $managerService
-);
-$communeController = new CommuneController($communeService);
-$provinceController = new ProvinceController($provinceService);
-$municipalityController = new MunicipalityController($municipalityService);
-$nationalityController = new NationalityController($nationalityService);
-$customerTypeController = new CustomerTypeController($customerTypeService);
+$homeController = $container->get(HomeController::class);
+$errorController = $container->get(ErrorController::class);
+$communeController = $container->get(CommuneController::class);
+$provinceController = $container->get(ProvinceController::class);
+$municipalityController = $container->get(MunicipalityController::class);
+$nationalityController = $container->get(NationalityController::class);
+$customerTypeController =  $container->get(CustomerTypeController::class);
 
+$route = @$_REQUEST['route'];
+$user  = @$_SESSION['user'];
 
-if (empty(@$_REQUEST['route']) || $_REQUEST['route'] == 'index.php') {
+if (empty($route) || $route == 'index.php') {
     return header('location: /outdoors/home');
 }
 
 //public
-switch ($_REQUEST['route']) {
+switch ($route) {
     case "home":
         return $homeController->index();
 
@@ -89,8 +51,8 @@ switch ($_REQUEST['route']) {
 }
 
 //admin
-if (isset($_SESSION['user']) && $_SESSION['user']->access == 'admin') {
-    switch ($_REQUEST['route']) {
+if (isset($user) && $user->access == User::ACCESS_ADMIN) {
+    switch ($route) {
         case "manager":
             return $homeController->manager();
 
@@ -106,11 +68,8 @@ if (isset($_SESSION['user']) && $_SESSION['user']->access == 'admin') {
 }
 
 //normal
-if (isset($_SESSION['user']) && $_SESSION['user']->access == 'normal') {
-    switch ($_REQUEST['route']) {
-        case "home":
-            return $homeController->index();
-
+if (isset($user) && $user->access == User::ACCESS_NORMAL) {
+    switch ($route) {
         case "profile":
             return $homeController->profile();
 
@@ -120,8 +79,8 @@ if (isset($_SESSION['user']) && $_SESSION['user']->access == 'normal') {
 }
 
 //visitante
-if (!isset($_SESSION['user'])) {
-    switch ($_REQUEST['route']) {
+if (!isset($user)) {
+    switch ($route) {
         case "login":
             return $homeController->login();
 

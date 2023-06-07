@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Core\Registry;
 use App\Model\Customer;
 use App\Model\User;
-use App\Repositories\ICustomerRepository;
+use App\Repositories\CustomerRepository;
 
 class CustomerService extends Registry implements ICustomerService
 {
@@ -18,13 +18,13 @@ class CustomerService extends Registry implements ICustomerService
     private $customerRepository;
 
     public function __construct(
-        IUserService $userService,
-        ICommuneService $communeService,
-        IProvinceService $provinceService,
-        INationalityService $nationalityService,
-        ICustomerRepository $customerRepository,
-        IMunicipalityService $municipalityService,
-        ICustomerTypeService $customerTypeService
+        UserService $userService,
+        CommuneService $communeService,
+        ProvinceService $provinceService,
+        NationalityService $nationalityService,
+        CustomerRepository $customerRepository,
+        MunicipalityService $municipalityService,
+        CustomerTypeService $customerTypeService
     ) {
         parent::__construct();
 
