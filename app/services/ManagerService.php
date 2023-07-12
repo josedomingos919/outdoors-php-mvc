@@ -194,4 +194,14 @@ class ManagerService extends Registry implements IManagerService
     {
         return $this->managerRepository->getManagerByUserId($user_id);
     }
+
+    public function getAll($page)
+    {
+        return $this->managerRepository->getAll($page);
+    }
+
+    public function totalPage(): array
+    {
+        return $this->managerRepository->totalPage();
+    }
 }

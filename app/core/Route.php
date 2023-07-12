@@ -56,6 +56,9 @@ if (isset($user) && $user->access == User::ACCESS_ADMIN) {
         case "manager":
             return $homeController->manager();
 
+        case "manager-list":
+            return $homeController->listManager();
+
         case "toogle-user":
             return $homeController->toggleUser();
 

@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Core\Pagination;
 use App\DBConfig\PDOAdapter;
 use App\Model\Manager;
+use App\Model\User;
 
 class ManagerRepository extends PDOAdapter implements IManagerRepository
 {
@@ -87,6 +89,37 @@ class ManagerRepository extends PDOAdapter implements IManagerRepository
             return $this->getManager($this->lastInsertId());
         } catch (\Exception $error) {
             return NULL;
+        }
+    }
+
+    public function getAll($page)
+    {
+        try {
+            $response = $this->query("SELECT *FROM user WHERE access='manager' LIMIT " . Pagination::getStart($page) . " , " . Pagination::getEnd());
+            $rows = $response->fetchAll(\PDO::FETCH_ASSOC);
+            $users = array();
+
+            foreach ($rows as $row) {
+                $users[] = new User($row['id'], $row['email'], $row['password'], $row['username'], $row['status'], $row['access']);
+            }
+
+            return $users;
+        } catch (\Exception $error) {
+            return NULL;
+        }
+    }
+
+    public function totalPage(): array
+    {
+        try {
+            $response = $this->query("SELECT COUNT(*) as total FROM user WHERE access='manager' ");
+
+            $total = $response->fetchAll(\PDO::FETCH_ASSOC)[0]['total'];
+            $pages = $total / Pagination::getEnd();
+
+            return array('total' => $total, 'pages' => $pages);
+        } catch (\Exception $error) {
+            return 0;
         }
     }
 }

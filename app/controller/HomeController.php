@@ -205,6 +205,19 @@ class HomeController extends Registry
         $this->getView('site/users', $data);
     }
 
+    public function listManager()
+    {
+        $data = array();
+        $page = isset($this->request->get["page"]) ? $this->request->get["page"] : 1;
+        $pagination = $this->managerService->totalPage();
+        $data['pages'] = $pagination['pages'];
+        $data['total'] = $pagination['total'];
+        $data['page']  = $page;
+        $data['users'] = $this->managerService->getAll($page);
+
+        $this->getView('site/managers', $data);
+    }
+
     public function toggleUser()
     {
         $this->userService->toggleUser();
