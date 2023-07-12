@@ -75,7 +75,7 @@ class ManagerRepository extends PDOAdapter implements IManagerRepository
             $this->query("
                 INSERT INTO manager 
                 VALUES(
-                    '$manager->id', 
+                    default, 
                     '$manager->name',
                     '$manager->communeId',  
                     '$manager->phone',  

@@ -9,7 +9,7 @@ class PDOAdapter
     private $host     = "localhost";
     private $dbname   = "outdoors";
     private $username = "root";
-    private $password = "";
+    private $password = "Domingos.1";
 
     public function __construct()
     {

@@ -84,7 +84,7 @@ class CustomerRepository extends PDOAdapter implements ICustomerRepository
             $this->query("
                 INSERT INTO customer 
                 VALUES(
-                    '$customer->id', 
+                    default, 
                     '$customer->name', 
                     '$customer->phone', 
                     '$customer->nationalityId', 

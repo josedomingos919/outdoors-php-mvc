@@ -108,7 +108,7 @@ class UserRepository extends PDOAdapter implements IUserRepository
     public function addUser(User $user)
     {
         try {
-            $this->query("INSERT INTO user VALUES('$user->id','$user->username', '$user->password', '$user->email', '$user->status', '$user->access')");
+            $this->query("INSERT INTO user VALUES(default,'$user->username', '$user->password', '$user->email', '$user->status', '$user->access')");
 
             return $this->getUser($this->lastInsertId());
         } catch (\Exception $error) {
