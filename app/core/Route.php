@@ -6,6 +6,7 @@ use App\Controller\HomeController;
 use App\Controller\ErrorController;
 use App\Controller\MunicipalityController;
 use App\Controller\NationalityController;
+use App\Controller\OutdoorController;
 use App\Controller\ProvinceController;
 use App\Model\User;
 
@@ -14,6 +15,7 @@ $container = new DI\Container();
 $homeController = $container->get(HomeController::class);
 $errorController = $container->get(ErrorController::class);
 $communeController = $container->get(CommuneController::class);
+$outdoorController = $container->get(OutdoorController::class);
 $provinceController = $container->get(ProvinceController::class);
 $municipalityController = $container->get(MunicipalityController::class);
 $nationalityController = $container->get(NationalityController::class);
@@ -94,19 +96,19 @@ if (isset($user) && $user->access == User::ACCESS_MANAGER) {
     else
         switch ($route) {
             case "outdoors-add":
-                return $homeController->addOutDoors();
+                return $outdoorController->add();
 
             case "outdoors-delete":
-                return $homeController->deleteOutDoors();
+                return $outdoorController->remove();
 
             case "outdoors-update":
-                return $homeController->updateOutDoors();
+                return $homeController->update();
 
             case "outdoors-list":
-                return $homeController->listOutDoors();
+                return $homeController->list();
 
             case "outdoors-requests":
-                return $homeController->outdoorsRequests();
+                return $homeController->request();
 
             case "logout":
                 return $homeController->logout();
