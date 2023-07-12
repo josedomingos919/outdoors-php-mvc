@@ -21,6 +21,11 @@ class Registry
         $_SESSION[$key] = $value;
     }
 
+    public function getSession($key)
+    {
+        return @$_SESSION[$key];
+    }
+
     public function redirect($url)
     {
         header('location: ' . $url);

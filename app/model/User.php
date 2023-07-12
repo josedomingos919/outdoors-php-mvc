@@ -29,4 +29,14 @@ class User extends Model
         $this->password = $password;
         $this->username = $username;
     }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
 }

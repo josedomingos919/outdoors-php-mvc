@@ -16,6 +16,37 @@ class UserService extends Registry implements IUserService
         $this->userRepository = $userRepository;
     }
 
+    public function validateFormData($password, $confirm_password, &$data): bool
+    {
+        if (empty(@$password) || (empty(@$confirm_password))) {
+            $data['error_message'] = "Senha não podem ser nula!";
+            return false;
+        }
+
+        if ($password != $confirm_password) {
+            $data['error_message'] = "As senhas são diferentes!";
+            return false;
+        }
+
+        if ($password == $this->getSession('user')->password) {
+            $data['error_message'] = "Senha precisa ser diferente da existente!";
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public function updateUserPassword(User $user, $password, $confirm_password, &$data)
+    {
+        if (!$this->validateFormData($password, $confirm_password, $data)) return;
+
+        $user->setPassword($password);
+        $user->setStatus(User::STATUS_ACTIVE);
+
+        return $this->userRepository->updateUser($user);
+    }
+
     public function updateUser(User $user)
     {
         return $this->userRepository->updateUser($user);

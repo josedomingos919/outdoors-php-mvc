@@ -33,9 +33,16 @@ class LoginService extends Registry implements ILoginService
 
         $responseUser = $this->userRepository->getUserByUsername($username);
 
-        if (!empty(@$responseUser) && $password == $responseUser->password && $responseUser->status == User::STATUS_ACTIVE) {
+        $isLogged = !empty(@$responseUser) && $password == $responseUser->password;
+
+        if ($isLogged == true && $responseUser->status == User::STATUS_ACTIVE || $isLogged == true && $responseUser->access == 'manager') {
             $this->setSession("user", $responseUser);
-            $this->redirect('/outdoors/home');
+
+            if ($responseUser->access == 'manager' && $responseUser->status == User::STATUS_INACTIVE) {
+                $this->redirect('/outdoors/manager-update-password');
+            } else {
+                $this->redirect('/outdoors/home');
+            }
         } else {
             $data['error_message'] = 'Falha no login, tente novamente mais tarde!';
         }

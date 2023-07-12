@@ -81,6 +81,38 @@ if (isset($user) && $user->access == User::ACCESS_NORMAL) {
     }
 }
 
+//manager
+if (isset($user) && $user->access == User::ACCESS_MANAGER) {
+    if ($user->status == User::STATUS_INACTIVE)
+        switch ($route) {
+            case "manager-update-password":
+                return $homeController->updateManagerPasswod();
+
+            case "logout":
+                return $homeController->logout();
+        }
+    else
+        switch ($route) {
+            case "outdoors-add":
+                return $homeController->addOutDoors();
+
+            case "outdoors-delete":
+                return $homeController->deleteOutDoors();
+
+            case "outdoors-update":
+                return $homeController->updateOutDoors();
+
+            case "outdoors-list":
+                return $homeController->listOutDoors();
+
+            case "outdoors-requests":
+                return $homeController->outdoorsRequests();
+
+            case "logout":
+                return $homeController->logout();
+        }
+}
+
 //visitante
 if (!isset($user)) {
     switch ($route) {

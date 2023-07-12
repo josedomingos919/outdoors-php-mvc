@@ -15,13 +15,14 @@ class EmialService
         try {
             //Server settings
             $mail->CharSet = "UTF-8";
-            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            //$mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->isSMTP();
-            $mail->Host       = 'sandbox.smtp.mailtrap.io';
+            $mail->Host       = 'smtp.gmail.com'; //'sandbox.smtp.mailtrap.io';
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'f82ba5b860c3a8';
-            $mail->Password   = '461a3b54b455b0';
-            $mail->Port       = 2525;
+            $mail->Username   = '20200689@isptec.co.ao';
+            $mail->Password   = 'Domingos.1';
+            $mail->Port       = 587;
+            //$mail->SMTPSecure = 'tls';
 
             //Recipients
             $mail->setFrom($fromEmail, $fromName);

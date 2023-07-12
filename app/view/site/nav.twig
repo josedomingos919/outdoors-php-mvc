@@ -21,6 +21,20 @@
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="/outdoors/profile">Perfil</a>
 						</li>
+					{% elseif super.user.access == 'manager' and super.user.status == 0 %}
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/outdoors/manager-update-password">Atualizar Senha</a>
+						</li>
+					{% elseif super.user.access == 'manager' and super.user.status == 1 %}
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/outdoors/">Criar Outdoors</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/outdoors/">Listar Outdoors</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="/outdoors/">Listar Solicitaçõess</a>
+						</li>
 					{% endif %}
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="/outdoors/logout">Sair</a>

@@ -8,6 +8,7 @@ use App\Model\Manager;
 use App\Model\User;
 use App\Services\CommuneService;
 use App\Services\CustomerService;
+use App\Services\EmialService;
 use App\Services\LoginService;
 use App\Services\ManagerService;
 use App\Services\MunicipalityService;
@@ -51,7 +52,17 @@ class HomeController extends Registry
 
     public function email()
     {
+        EmialService::sendEmail(
+            '20200689@isptec.co.ao',
+            'José Ndonge',
+            'josedomingos919@gmail.com',
+            'Teste',
+            'Teste',
+            'Teste'
+        );
+
         $data = array('name' => 'José', 'message' => 'Message');
+
         $this->getView('mail/template1', $data);
     }
 
@@ -111,6 +122,32 @@ class HomeController extends Registry
         }
 
         $this->getView('site/profile', $data);
+    }
+
+    public function updateManagerPasswod()
+    {
+        $data = array();
+
+        if (!empty($this->request->post["data"])) {
+            $data["data"] = $this->request->post["data"];
+
+            $response = $this->userService->updateUserPassword(
+                $this->getSession('user'),
+                $this->request->post["data"]["password"],
+                $this->request->post["data"]["password_confirm"],
+                $data
+            );
+
+            if ($response) {
+                $this->loginService->login(
+                    $this->getSession('user')->username,
+                    $this->request->post["data"]["password"],
+                    $data
+                );
+            }
+        }
+
+        $this->getView('site/update_password', $data);
     }
 
     public function login()
