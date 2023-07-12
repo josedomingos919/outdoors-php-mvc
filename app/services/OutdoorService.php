@@ -88,7 +88,6 @@ class OutdoorService extends Registry implements IOutdoorService
 
             $response = $this->outdoorRepository->add($outdoor);
 
-            var_dump($response);
             if (empty($response)) {
                 $data['error_message'] = "Falha, Tente novamente mais tarde!";
                 return false;
