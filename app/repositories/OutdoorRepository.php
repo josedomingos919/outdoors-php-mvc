@@ -10,6 +10,13 @@ use App\Model\User;
 
 class OutdoorRepository extends PDOAdapter implements IOutdoorRepository
 {
+    public function remove($id)
+    {
+        $this->query("DELETE FROM outdoor WHERE id=$id");
+
+        return true;
+    }
+
     public function getAllTypes(): array
     {
         $municipalities = [];
@@ -52,19 +59,45 @@ class OutdoorRepository extends PDOAdapter implements IOutdoorRepository
         }
     }
 
-
     public function getAll($page)
     {
         try {
-            $response = $this->query("SELECT *FROM user LIMIT " . Pagination::getStart($page) . " , " . Pagination::getEnd());
+            $response = $this->query("
+                SELECT 
+                    outdoor.*, 
+                    commune.name as commune ,
+                    municipality.name as municipality ,
+                    province.name as province ,
+                    outdoor_type.type as type 
+                FROM 
+                    outdoor
+                JOIN commune on outdoor.communeId = commune.id
+                JOIN municipality on municipality.id = commune.municipality_id
+                JOIN province on province.id = municipality.province_id
+                JOIN outdoor_type on outdoor_type.id = outdoor.tipoId
+
+                LIMIT " . Pagination::getStart($page) . " , " . Pagination::getEnd());
             $rows = $response->fetchAll(\PDO::FETCH_ASSOC);
-            $users = array();
+            $data = array();
 
             foreach ($rows as $row) {
-                $users[] = new User($row['id'], $row['email'], $row['password'], $row['username'], $row['status'], $row['access']);
+                $item = new Outdoor(
+                    $row['id'],
+                    $row['tipoId'],
+                    $row['price'],
+                    $row['status'],
+                    $row['communeId']
+                );
+
+                $item->municipality = $row['municipality'];
+                $item->province = $row['province'];
+                $item->commune = $row['commune'];
+                $item->type = $row['type'];
+
+                $data[] = $item;
             }
 
-            return $users;
+            return $data;
         } catch (\Exception $error) {
             return NULL;
         }
@@ -73,7 +106,7 @@ class OutdoorRepository extends PDOAdapter implements IOutdoorRepository
     public function totalPage(): array
     {
         try {
-            $response = $this->query("SELECT COUNT(*) as total FROM user");
+            $response = $this->query("SELECT COUNT(*) as total FROM outdoor");
 
             $total = $response->fetchAll(\PDO::FETCH_ASSOC)[0]['total'];
             $pages = $total / Pagination::getEnd();

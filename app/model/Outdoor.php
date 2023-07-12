@@ -17,6 +17,12 @@ class Outdoor extends Model
     public $status;
     public $communeId;
 
+    public $province;
+    public $commune;
+    public $municipality;
+    public $type;
+
+
     public function __construct($id, $tipoId, $price, $status, $communeId)
     {
         $this->id = $id;

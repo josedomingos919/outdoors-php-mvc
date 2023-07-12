@@ -41,6 +41,12 @@ class OutdoorService extends Registry implements IOutdoorService
         $this->customerTypeService = $customerTypeService;
     }
 
+
+    public function remove($id)
+    {
+        $this->outdoorRepository->remove($id);
+    }
+
     public function fillSelectData(&$data)
     {
         $data['provinces'] = $this->provinceService->getAll();
@@ -155,5 +161,16 @@ class OutdoorService extends Registry implements IOutdoorService
     public function getCustomerByUserId(int $user_id)
     {
         return $this->customerRepository->getCustomerByUserId($user_id);
+    }
+
+
+    public function getAll($page)
+    {
+        return $this->outdoorRepository->getAll($page);
+    }
+
+    public function totalPage(): array
+    {
+        return $this->outdoorRepository->totalPage();
     }
 }

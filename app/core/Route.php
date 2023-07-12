@@ -98,20 +98,20 @@ if (isset($user) && $user->access == User::ACCESS_MANAGER) {
             case "outdoors-add":
                 return $outdoorController->add();
 
-            case "outdoors-delete":
+            case "outdoors-remove":
                 return $outdoorController->remove();
 
             case "outdoors-update":
-                return $homeController->update();
+                return $outdoorController->update();
 
             case "outdoors-list":
-                return $homeController->list();
+                return $outdoorController->list();
 
             case "outdoors-requests":
-                return $homeController->request();
+                return $outdoorController->request();
 
             case "logout":
-                return $homeController->logout();
+                return $outdoorController->logout();
         }
 }
 

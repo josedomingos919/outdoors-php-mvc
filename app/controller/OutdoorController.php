@@ -79,12 +79,21 @@ class OutdoorController extends Registry
 
     public function remove()
     {
-        $this->getView('error/not_found');
+        $this->outdoorService->remove($this->request->get["id"]);
+        $this->redirect('/outdoors/outdoors-list');
     }
 
     public function list()
     {
-        $this->getView('error/not_found');
+        $data = array();
+        $page = isset($this->request->get["page"]) ? $this->request->get["page"] : 1;
+        $pagination = $this->outdoorService->totalPage();
+        $data['pages'] = $pagination['pages'];
+        $data['total'] = $pagination['total'];
+        $data['page']  = $page;
+        $data['data'] = $this->outdoorService->getAll($page);
+
+        $this->getView('site/outdoors', $data);
     }
 
     public function request()

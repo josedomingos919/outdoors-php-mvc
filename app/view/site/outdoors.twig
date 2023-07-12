@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>XPTO Outdoors</title>
+		<link rel="stylesheet" href="/outdoors/app/content/bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="/outdoors/app/content/css/home.css">
+		<link rel="stylesheet" href="/outdoors/app/content/css/login.css">
+	</head>
+	<body>
+		{{ super.nav }}
+		<div class="home-banner">
+			<div>
+				<h1>
+					Olá, Somos a XPTO
+				</h1>
+				<p class="decription-text">Fizemos aluger de outdoors em toda Angola!
+				</p>
+			</div>
+		</div>
+		<div class="login-container list">
+			<form action="" method="post" class="card p-3">
+				<div class="mb-3">
+					<h1 class="login-text">Outdoors</h1>
+				</div>
+				{% if success_message %}
+					<div class="alert alert-success" role="alert">
+						{{ success_message|raw }}
+					</div>
+				{% endif %}
+				{% if error_message %}
+					<div class="alert alert-danger" role="alert">
+						{{ error_message }}
+					</div>
+				{% endif %}
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Tipo</th>
+							<th scope="col">Preco</th>
+							<th scope="col">Status</th>
+							<th scope="col">Comuna</th>
+							<th scope="col">Municipio</th>
+							<th scope="col">Provincia</th>
+							<th scope="col" class="text-center">Opção</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in data %}
+							<tr>
+								<td>{{ item.type }}</td>
+								<td>{{ item.price }}</td> 
+								<td>{{ item.status }}</td>
+								<td>{{ item.commune }}</td>
+								<td>{{ item.municipality }}</td>
+								<td>{{ item.province }}</td> 
+								<td class="text-center">
+								   <a href="/outdoors/outdoors-remove&id={{ item.id }}" color="danger" class="btn btn-danger" href="">Eliminar<a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				{% if pages > 1 %}
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							{% if page > 1 %}
+								<li class="page-item">
+									<a class="page-link" href="/outdoors/outdoors-list&page={{ page - 1 }}" aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+									</a>
+								</li>
+							{% endif %}
+							{% for i in 0..pages %}
+								<li {% if page == i+1 %} class="page-item active" {% else %} class="page-item" {% endif %}>
+									<a class="page-link" href="/outdoors/outdoors-list&page={{ i + 1 }}">{{ i + 1 }}</a>
+								</li>
+							{% endfor %}
+							{% if page < pages %}
+								<li class="page-item">
+									<a class="page-link" href="/outdoors/outdoors-list&page={{ page + 1 }}" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+									</a>
+								</li>
+							{% endif %}
+						</ul>
+					</nav>
+				{% endif %}
+
+
+			</form>
+		</div>
+		<script src="/outdoors/app/scripts/jquery/jquery-3.7.0.min.js"></script>
+		<script src="/outdoors/app/scripts/bootbox/bootbox.all.min.js"></script>
+		<script src="/outdoors/app/scripts/bootstrap/bootstrap.js"></script>
+		<script src="/outdoors/app/scripts/custom/registry.js"></script>
+	</body>
+</html>
